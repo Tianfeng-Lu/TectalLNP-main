@@ -86,11 +86,11 @@ while jbin <= rlen
         mxi_in = min(rlen_in, ispk_in+hlen_in);
         iiPostSpk_in = ispk_in+1:mxi_in;
         
-        ex_weights = glmprs.w_ex(:, spcells);
+        ex_weights = glmprs.w_ex(:, spcells); % spatial filter
         in_weights = glmprs.w_in(:, spcells);
-        a = repmat(ex_filt, length(spcells), 1);
+        a = repmat(ex_filt, length(spcells), 1); % temporal filter
         b = repmat(in_filt, length(spcells), 1);
-        outgoing_total_ex = ex_weights*a;
+        outgoing_total_ex = ex_weights*a; % recurrent input from the spike: I_spatial @ Spike @ I_temporal
         outgoing_total_in = in_weights*b;
         next_weight = ispk/glmprs.inhibition_downsample - floor(ispk/glmprs.inhibition_downsample);
 
